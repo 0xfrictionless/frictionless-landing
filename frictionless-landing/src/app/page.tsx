@@ -1,18 +1,41 @@
-export default function Home() {
+// /src/app/page.tsx
+
+'use client';
+import Head from 'next/head';
+import InputHandler from '../components/InputHandler';
+import { useState } from 'react';
+
+export default function Page() {
+  const [submittedHash, setSubmittedHash] = useState<string | null>(null);
+  const [submittedChain, setSubmittedChain] = useState<string | null>(null);
+
+  function handleValidSubmit(chain: string, hash: string) {
+    console.log('Chain:', chain);
+    console.log('Hash:', hash);
+    setSubmittedHash(hash);
+    setSubmittedChain(chain);
+  }
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-[#f9f9f9] text-gray-900 p-6">
-      <div className="max-w-xl text-center">
-        <div className="mb-6">
-          <div className="mx-auto mb-4 w-16 h-16 rounded-full bg-white shadow flex items-center justify-center">
-            <span className="text-2xl">🧾</span>
-          </div>
-          <h1 className="text-3xl font-bold mb-2">Crypto receipts made simple.</h1>
-          <p className="text-lg text-gray-600">From hash to human in seconds.</p>
-        </div>
-        <p className="mt-6 text-sm text-gray-500">
-          Coming soon — follow <a href="https://x.com/UseFrictionless" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">@UseFrictionless</a>
-        </p>
-      </div>
-    </main>
+    <>
+      <Head>
+        <title>Frictionless | Crypto Receipts Made Simple</title>
+        <meta
+          name="description"
+          content="From hash to human in seconds. Generate trustable crypto receipts."
+        />
+      </Head>
+
+      <main className="min-h-screen flex flex-col items-center justify-center gap-4 p-8">
+  <InputHandler onValidSubmit={handleValidSubmit} />
+
+  {submittedHash && submittedChain && (
+    <div className="text-sm text-gray-400">
+      ✅ Submitted {submittedChain} hash: <br />
+      <code className="break-all">{submittedHash}</code>
+    </div>
+  )}
+</main>
+    </>
   );
 }
