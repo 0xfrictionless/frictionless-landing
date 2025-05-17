@@ -54,7 +54,13 @@ async function checkTxExists(chain: string, hash: string): Promise<boolean> {
             jsonrpc: "2.0",
             id: 1,
             method: "getTransaction",
-            params: [hash, { encoding: "json" }],
+            params: [
+  hash,
+  {
+    encoding: "jsonParsed",
+    maxSupportedTransactionVersion: 1
+  }
+],
           }),
         }
       );
