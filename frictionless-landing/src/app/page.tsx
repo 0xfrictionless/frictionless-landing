@@ -3,11 +3,15 @@
 'use client';
 import Head from 'next/head';
 import InputHandler from '../components/InputHandler';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Page() {
   const [submittedHash, setSubmittedHash] = useState<string | null>(null);
   const [submittedChain, setSubmittedChain] = useState<string | null>(null);
+
+    useEffect(() => {
+    console.log('Etherscan API Key:', process.env.NEXT_PUBLIC_ETHERSCAN_API_KEY);
+  }, []);
 
   function handleValidSubmit(chain: string, hash: string) {
     console.log('Chain:', chain);
